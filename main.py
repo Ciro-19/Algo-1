@@ -11,6 +11,13 @@ class MyGame:
             return 2
         else:
             return 0
+    
+    
+    def continue_game_func(self):
+        continue_game = ""
+        while continue_game != "y" and continue_game != "n":
+            continue_game = input("continuer ? (y/n)")
+        return continue_game
 
 
 class Player:
@@ -63,12 +70,6 @@ class Ia:
         return choix_ia
 
 
-def continue_game_func():
-    continue_game = ""
-    while continue_game != "y" and continue_game != "n":
-        continue_game = input("continuer ? (y/n)")
-    return continue_game
-
 continue_game = "o"
 liste_choix = ["pierre", "feuille", "ciseau"]
 name_user = input("votre nom: ")
@@ -110,7 +111,7 @@ while continue_game != "n":
         nbre_coup_pierre = 0
         nbre_coup_feuille = 0
         liste_coup = [player_1, nbre_coup_ciseau]
-    continue_game = continue_game_func()
+    continue_game = control_game.continue_game_func()
 if point_user < point_ia:
     print("Ia gagne avec une avance de ", point_ia - point_user, "et un score de = ", point_ia)
 elif point_user > point_ia:
