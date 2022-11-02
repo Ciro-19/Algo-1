@@ -15,20 +15,24 @@ class MyGame:
             return 0
 
 
-def choice_user_possi(liste_choix):
-    cpt = 0
-    for i in liste_choix:
-        print("{} - {}".format(cpt,i))
-        cpt += 1
-    choice_user = input("votre choix : ")
-    try:
-        choice_user = int(choice_user)
-        if choice_user < 0 or choice_user > 2:
-          return choice_user_possi(liste_choix)
-        return choice_user
-    except:
-        print("entrez un chiffre: ")
-        return choice_user_possi(liste_choix)
+class Player:
+    def __init__(self, liste_choix):
+        self.liste_choix = liste_choix
+
+
+    def choice_user_possi(self):
+        cpt = 0
+        for i in self.liste_choix:
+            print("{} - {}".format(cpt,i))
+            cpt += 1
+        choice_user = input("votre choix : ")
+        try:
+            choice_user = int(choice_user)
+            return choice_user
+        except:
+            print("entrez un chiffre: ")
+            return choice_user_possi(self.liste_choix)
+
 
 
 def continue_game_func():
@@ -40,11 +44,11 @@ def continue_game_func():
 continue_game = "o"
 liste_choix = ["pierre", "feuille", "ciseau"]
 while continue_game != "n":
-    choice_user = choice_user_possi(liste_choix)
+    player_1 = Player(liste_choix).choice_user_possi()
     choice_ia = choice(liste_choix)
     print("choix ia = {}".format(choice_ia))
-    print("choix user = {}".format(liste_choix[choice_user]))
-    control_game = MyGame(liste_choix[choice_user], choice_ia)
+    print("choix user = {}".format(liste_choix[player_1]))
+    control_game = MyGame(liste_choix[player_1], choice_ia)
     print(control_game.is_winner())
     if control_game.is_winner() == 1:
       print("gagner")
