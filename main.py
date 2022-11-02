@@ -1,10 +1,10 @@
 class MyGame:
-    def __init__(self, choice_user, choice_ia):
+    def __init__(self, choice_user:str, choice_ia:str):
         self.choice_user = choice_user
         self.choice_ia = choice_ia
     
 
-    def is_winner(self):
+    def is_winner(self)->int:
         if (self.choice_user == "feuille" and self.choice_ia == "pierre") or (self.choice_user == "pierre" and self.choice_ia == "ciseau") or (self.choice_user == "ciseau" and self.choice_ia == "feuille"):
             return 1
         elif (self.choice_user == self.choice_ia):
@@ -13,7 +13,7 @@ class MyGame:
             return 0
     
     
-    def continue_game_func(self):
+    def continue_game_func(self)->str:
         continue_game = ""
         while continue_game != "y" and continue_game != "n":
             continue_game = input("continuer ? (y/n)")
@@ -21,12 +21,12 @@ class MyGame:
 
 
 class Player:
-    def __init__(self,name_user,liste_choix):
+    def __init__(self,name_user:str,liste_choix:list):
         self.liste_choix = liste_choix
         print("Joueur {}".format(name_user))
 
 
-    def choice_user_possi(self):
+    def choice_user_possi(self)->str:
         cpt = 0
         for i in self.liste_choix:
             print("{} - {}".format(cpt,i))
@@ -43,7 +43,7 @@ class Ia:
         self.liste_coup = liste_coup
 
 
-    def Ia_choice(self):
+    def Ia_choice(self)->str:
         if self.liste_coup[1] >= 2:
             if self.liste_coup[0] == "feuille":
                 choix_ia = "ciseau"
