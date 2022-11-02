@@ -31,7 +31,13 @@ class Player:
             choice_user = int(input("votre choix : "))
         return choice_user
         
+class Ia:
+    def __init__(self, liste_choix):
+        self.liste_choix = liste_choix
 
+
+    def Ia_choice(self):
+        return choice(self.liste_choix)
 
 
 def continue_game_func():
@@ -45,10 +51,10 @@ liste_choix = ["pierre", "feuille", "ciseau"]
 name_user = input("votre nom: ")
 while continue_game != "n":
     player_1 = Player(name_user, liste_choix).choice_user_possi()
-    choice_ia = choice(liste_choix)
-    print("choix ia = {}".format(choice_ia))
+    player_ia = Ia(liste_choix).Ia_choice()
+    print("choix ia = {}".format(player_ia))
     print("choix user = {}".format(liste_choix[player_1]))
-    control_game = MyGame(liste_choix[player_1], choice_ia)
+    control_game = MyGame(liste_choix[player_1], player_ia)
     print(control_game.is_winner())
     if control_game.is_winner() == 1:
       print("gagner")
