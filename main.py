@@ -16,8 +16,9 @@ class MyGame:
 
 
 class Player:
-    def __init__(self, liste_choix):
+    def __init__(self,name_user,liste_choix):
         self.liste_choix = liste_choix
+        print("Joueur {}".format(name_user))
 
 
     def choice_user_possi(self):
@@ -25,13 +26,11 @@ class Player:
         for i in self.liste_choix:
             print("{} - {}".format(cpt,i))
             cpt += 1
-        choice_user = input("votre choix : ")
-        try:
-            choice_user = int(choice_user)
-            return choice_user
-        except:
-            print("entrez un chiffre: ")
-            return choice_user_possi(self.liste_choix)
+        choice_user = -1
+        while choice_user < 0 or choice_user > 2:
+            choice_user = int(input("votre choix : "))
+        return choice_user
+        
 
 
 
@@ -43,8 +42,9 @@ def continue_game_func():
 
 continue_game = "o"
 liste_choix = ["pierre", "feuille", "ciseau"]
+name_user = input("votre nom: ")
 while continue_game != "n":
-    player_1 = Player(liste_choix).choice_user_possi()
+    player_1 = Player(name_user, liste_choix).choice_user_possi()
     choice_ia = choice(liste_choix)
     print("choix ia = {}".format(choice_ia))
     print("choix user = {}".format(liste_choix[player_1]))
