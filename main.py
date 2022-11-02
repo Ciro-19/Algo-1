@@ -23,6 +23,8 @@ def choice_user_possi(liste_choix):
     choice_user = input("votre choix : ")
     try:
         choice_user = int(choice_user)
+        if choice_user < 0 or choice_user > 2:
+          return choice_user_possi(liste_choix)
         return choice_user
     except:
         print("entrez un chiffre: ")
