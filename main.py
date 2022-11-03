@@ -1,3 +1,8 @@
+"""
+sam
+lucas
+idriss
+"""
 class MyGame:
     def __init__(self:object, name_user:str):
         self.name_user = name_user
