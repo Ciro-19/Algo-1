@@ -59,7 +59,7 @@ class MyGame:
         return [liste_coup, nbre_coup_pierre, nbre_coup_ciseau, nbre_coup_feuille]
 
 
-    def start_game(self:onject):
+    def start_game(self:object):
         continue_game = "o"
         liste_choix = ["pierre", "feuille", "ciseau"]
         name_user = input("votre nom: ")
