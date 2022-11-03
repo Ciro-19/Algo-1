@@ -28,7 +28,7 @@ class MyGame:
         return continue_game
 
 
-    def _calculPoint(self:object, choice_user, choice_ia, point_user, point_ia):
+    def _calculPoint(self:object, choice_user:str, choice_ia:str, point_user:int, point_ia:int)->list[int]:
         if self._is_winner(choice_user, choice_ia) == 1:
             print("gagner")
             point_user += 1
@@ -40,7 +40,7 @@ class MyGame:
         return [point_user, point_ia]
 
 
-    def _calculIa(self:object, choice_user,nbre_coup_pierre, nbre_coup_ciseau, nbre_coup_feuille, liste_coup):
+    def _calculIa(self:object, choice_user:str,nbre_coup_pierre:int, nbre_coup_ciseau:int, nbre_coup_feuille:int, liste_coup:list)->list[list, int]:
         if choice_user == "pierre":
             nbre_coup_pierre += 1
             nbre_coup_ciseau = 0
@@ -59,7 +59,7 @@ class MyGame:
         return [liste_coup, nbre_coup_pierre, nbre_coup_ciseau, nbre_coup_feuille]
 
 
-    def start_game(self):
+    def start_game(self:onject):
         continue_game = "o"
         liste_choix = ["pierre", "feuille", "ciseau"]
         name_user = input("votre nom: ")
