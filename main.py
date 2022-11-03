@@ -1,6 +1,6 @@
 class MyGame:
-    def __init__(self:object):
-        pass
+    def __init__(self:object, name_user:str):
+        self.name_user = name_user
     
 
     def _is_winner(self:object, choice_user:str,choice_ia:str)->int:
@@ -62,7 +62,6 @@ class MyGame:
     def start_game(self:object):
         continue_game = "o"
         liste_choix = ["pierre", "feuille", "ciseau"]
-        name_user = input("votre nom: ")
         point_ia = 0
         point_user = 0
         liste_coup = [0,0]
@@ -70,7 +69,7 @@ class MyGame:
         nbre_coup_ciseau = 0
         nbre_coup_feuille = 0
         while continue_game != "n":
-            player_1 = Player(name_user, liste_choix).choice_user_possi()
+            player_1 = Player(self.name_user, liste_choix).choice_user_possi()
             with open("dataUser.txt", "a") as file_data:
                 file_data.write(" " + player_1)
             result = self._calculIa(player_1, nbre_coup_pierre, nbre_coup_ciseau, nbre_coup_feuille, liste_coup)
@@ -142,7 +141,7 @@ class Ia:
 
 
 
-
-start_game = MyGame()
+name_user = input("entrez votre nom: ")
+start_game = MyGame(name_user)
 start_game.start_game()
 
