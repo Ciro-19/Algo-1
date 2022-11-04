@@ -96,7 +96,6 @@ class MyGame:
                 nbre_coup_rock = result[1]
                 nbre_coup_scissor = result[2]
                 nbre_coup_paper = result[3]
-            if self.choice_ia_or_player == "ia":
                 player_ia = Ia(liste_choix, liste_coup).Ia_choice()
             else:
                 player_ia = Player(self.choice_ia_or_player, liste_choix).choice_user_possi()
