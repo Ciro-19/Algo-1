@@ -6,15 +6,27 @@ idriss
 class MyGame:
     def __init__(self:object, name_user:str):
         self.name_user = name_user
-    
+        ROCK = "rock"
+        PAPER = "paper"
+        SCISSOR = "scissor"
+        self.winner = {
+            (ROCK , PAPER): PAPER,
+            (PAPER , SCISSOR): SCISSOR,
+            (SCISSOR , ROCK): ROCK,
+            (ROCK , ROCK): None,
+            (PAPER , PAPER): None,
+            (SCISSOR , SCISSOR): None
+        }
+
 
     def _is_winner(self:object, choice_user:str,choice_ia:str)->int:
-        if (choice_user == "feuille" and choice_ia == "pierre") or (choice_user == "pierre" and choice_ia == "ciseau") or (choice_user == "ciseau" and choice_ia == "feuille"):
+        try:
+            if choice_ia == self.winner[(choice_user, choice_ia)]:
+                return 0
+            elif self.winner[(choice_user, choice_ia)] == None:
+                return 2
+        except:
             return 1
-        elif (choice_user == choice_ia):
-            return 2
-        else:
-            return 0
 
     
     def _nbrePoint(self:object, point_user:int, point_ia:int):
@@ -45,43 +57,43 @@ class MyGame:
         return [point_user, point_ia]
 
 
-    def _calculIa(self:object, choice_user:str,nbre_coup_pierre:int, nbre_coup_ciseau:int, nbre_coup_feuille:int, liste_coup:list)->list[list, int]:
-        if choice_user == "pierre":
-            nbre_coup_pierre += 1
-            nbre_coup_ciseau = 0
-            nbre_coup_feuille = 0
-            liste_coup = [choice_user, nbre_coup_pierre]
-        elif choice_user == "feuille":
-            nbre_coup_feuille += 1
-            nbre_coup_ciseau = 0
-            nbre_coup_pierre = 0
-            liste_coup = [choice_user, nbre_coup_feuille]
+    def _calculIa(self:object, choice_user:str,nbre_coup_rock:int, nbre_coup_scissor:int, nbre_coup_paper:int, liste_coup:list)->list[list, int]:
+        if choice_user == "rock":
+            nbre_coup_rock += 1
+            nbre_coup_scissor = 0
+            nbre_coup_paper = 0
+            liste_coup = [choice_user, nbre_coup_rock]
+        elif choice_user == "paper":
+            nbre_coup_paper += 1
+            nbre_coup_scissor = 0
+            nbre_coup_rock = 0
+            liste_coup = [choice_user, nbre_coup_paper]
         else:
-            nbre_coup_ciseau += 1
-            nbre_coup_pierre = 0
-            nbre_coup_feuille = 0
-            liste_coup = [choice_user, nbre_coup_ciseau]
-        return [liste_coup, nbre_coup_pierre, nbre_coup_ciseau, nbre_coup_feuille]
+            nbre_coup_scissor += 1
+            nbre_coup_rock = 0
+            nbre_coup_paper = 0
+            liste_coup = [choice_user, nbre_coup_scissor]
+        return [liste_coup, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper]
 
 
     def start_game(self:object):
         continue_game = "o"
-        liste_choix = ["pierre", "feuille", "ciseau"]
+        liste_choix = ["rock", "paper", "scissor"]
         point_ia = 0
         point_user = 0
         liste_coup = [0,0]
-        nbre_coup_pierre = 0
-        nbre_coup_ciseau = 0
-        nbre_coup_feuille = 0
+        nbre_coup_rock = 0
+        nbre_coup_scissor = 0
+        nbre_coup_paper = 0
         while continue_game != "n":
             player_1 = Player(self.name_user, liste_choix).choice_user_possi()
             with open("dataUser.txt", "a") as file_data:
                 file_data.write(" " + player_1)
-            result = self._calculIa(player_1, nbre_coup_pierre, nbre_coup_ciseau, nbre_coup_feuille, liste_coup)
+            result = self._calculIa(player_1, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
             liste_coup = result[0]
-            nbre_coup_pierre = result[1]
-            nbre_coup_ciseau = result[2]
-            nbre_coup_feuille = result[3]
+            nbre_coup_rock = result[1]
+            nbre_coup_scissor = result[2]
+            nbre_coup_paper = result[3]
             player_ia = Ia(liste_choix, liste_coup).Ia_choice()
             print("choix ia = {}".format(player_ia))
             print("choix user = {}".format(player_1))
@@ -118,12 +130,12 @@ class Ia:
     def Ia_choice(self:object)->str:
         print(self.liste_coup)
         if self.liste_coup[1] >= 2:
-            if self.liste_coup[0] == "feuille":
-                choix_ia = "ciseau"
-            elif self.liste_coup[0] == "pierre":
-                choix_ia = "feuille"
+            if self.liste_coup[0] == "paper":
+                choix_ia = "scissor"
+            elif self.liste_coup[0] == "rock":
+                choix_ia = "paper"
             else:
-                choix_ia = "pierre" 
+                choix_ia = "rock" 
         else:
             coup_jouer = []
             with open("dataUser.txt", "r") as file_data_open:
@@ -131,14 +143,14 @@ class Ia:
                     coup_jouer.append(row)
             coup_jouer = "".join(coup_jouer).split()
             if len(coup_jouer) != 0:
-                if max(coup_jouer, key=coup_jouer.count) == "pierre":
-                    choix_ia = "feuille"
-                elif max(coup_jouer, key=coup_jouer.count) == "feuille":
-                    choix_ia = "ciseau"
+                if max(coup_jouer, key=coup_jouer.count) == "rock":
+                    choix_ia = "paper"
+                elif max(coup_jouer, key=coup_jouer.count) == "paper":
+                    choix_ia = "scissor"
                 else:
-                    choix_ia = "pierre"
+                    choix_ia = "rock"
             else:
-                choix_ia = "feuille"
+                choix_ia = "paper"
         
         return choix_ia
 
