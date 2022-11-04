@@ -13,9 +13,9 @@ class MyGame:
             (ROCK , PAPER): PAPER,
             (PAPER , SCISSOR): SCISSOR,
             (SCISSOR , ROCK): ROCK,
-            (ROCK , ROCK): None,
-            (PAPER , PAPER): None,
-            (SCISSOR , SCISSOR): None
+            (ROCK , ROCK): 2,
+            (PAPER , PAPER): 2,
+            (SCISSOR , SCISSOR): 2
         }
 
 
@@ -23,8 +23,7 @@ class MyGame:
         try:
             if choice_ia == self.winner[(choice_user, choice_ia)]:
                 return 0
-            elif self.winner[(choice_user, choice_ia)] == None:
-                return 2
+            return self.winner[(choice_user, choice_ia)]
         except:
             return 1
 
