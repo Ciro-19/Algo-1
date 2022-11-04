@@ -86,7 +86,7 @@ class MyGame:
         nbre_coup_paper = 0
         while continue_game != "n":
             player_1 = Player(self.name_user, liste_choix).choice_user_possi()
-            with open("dataUser.txt", "a") as file_data:
+            with open("cerveauIa.txt", "a") as file_data:
                 file_data.write(" " + player_1)
             result = self._calculIa(player_1, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
             liste_coup = result[0]
@@ -137,7 +137,7 @@ class Ia:
                 choix_ia = "rock" 
         else:
             coup_jouer = []
-            with open("dataUser.txt", "r") as file_data_open:
+            with open("cerveauIa.txt", "r") as file_data_open:
                 for row in file_data_open:
                     coup_jouer.append(row)
             coup_jouer = "".join(coup_jouer).split()
