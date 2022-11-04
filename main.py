@@ -110,10 +110,8 @@ class Player:
 
 
     def choice_user_possi(self:object)->str:
-        cpt = 0
-        for i in self.liste_choix:
-            print("{} - {}".format(cpt,i))
-            cpt += 1
+        for i in range(len(self.liste_choix)):
+            print("{} - {}".format(i, self.liste_choix[i]))
         choice_user = -1
         while choice_user < 0 or choice_user > 2:
             try:
