@@ -3,9 +3,11 @@ sam
 lucas
 idriss
 """
+
 class MyGame:
-    def __init__(self:object, name_user:str):
-        self.name_user = name_user
+    def __init__(self:object):
+        self.name_user = input("entrez votre nom: ")
+        self.choice_ia_or_player = input("tapez ia pour jouer avec ia sinon rentrez le pseudo du deuxieme joueur: ")
         ROCK = "rock"
         PAPER = "paper"
         SCISSOR = "scissor"
@@ -30,11 +32,11 @@ class MyGame:
     
     def _nbrePoint(self:object, point_user:int, point_ia:int):
         if point_user < point_ia:
-            print("Ia gagne avec une avance de ", point_ia - point_user, "et un score de = ", point_ia)
+            print(self.choice_ia_or_player," gagne avec une avance de ", point_ia - point_user, "et un score de = ", point_ia)
         elif point_user > point_ia:
-            print("User gagne avec une avance de ", point_user - point_ia, "et un score de = ", point_user)
+            print(self.name_user," gagne avec une avance de ", point_user - point_ia, "et un score de = ", point_user)
         else:
-            print("égalité parfaite point ia = {}, point user = {}".format(point_ia, point_user))
+            print("égalité parfaite point {} = {}, point {} = {}".format(self.choice_ia_or_player,point_ia, self.name_user ,point_user))
     
 
     def _continue_game_func(self:object)->str:
@@ -46,12 +48,12 @@ class MyGame:
 
     def _calculPoint(self:object, choice_user:str, choice_ia:str, point_user:int, point_ia:int)->list[int]:
         if self._is_winner(choice_user, choice_ia) == 1:
-            print("gagner")
+            print("{} gagne".format(self.name_user))
             point_user += 1
         elif self._is_winner(choice_user, choice_ia) == 2:
             print("égalité")
         else:
-            print("perdu")
+            print("{} gagne".format(self.choice_ia_or_player))
             point_ia += 1
         return [point_user, point_ia]
 
@@ -86,16 +88,20 @@ class MyGame:
         nbre_coup_paper = 0
         while continue_game != "n":
             player_1 = Player(self.name_user, liste_choix).choice_user_possi()
-            with open("cerveauIa.txt", "a") as file_data:
-                file_data.write(" " + player_1)
-            result = self._calculIa(player_1, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
-            liste_coup = result[0]
-            nbre_coup_rock = result[1]
-            nbre_coup_scissor = result[2]
-            nbre_coup_paper = result[3]
-            player_ia = Ia(liste_choix, liste_coup).Ia_choice()
-            print("choix ia = {}".format(player_ia))
-            print("choix user = {}".format(player_1))
+            if self.choice_ia_or_player == "ia":
+                with open("cerveauIa.txt", "a") as file_data:
+                    file_data.write(" " + player_1)
+                result = self._calculIa(player_1, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
+                liste_coup = result[0]
+                nbre_coup_rock = result[1]
+                nbre_coup_scissor = result[2]
+                nbre_coup_paper = result[3]
+            if self.choice_ia_or_player == "ia":
+                player_ia = Ia(liste_choix, liste_coup).Ia_choice()
+            else:
+                player_ia = Player(self.choice_ia_or_player, liste_choix).choice_user_possi()
+            print("{} = {}".format(self.choice_ia_or_player,player_ia))
+            print("{} = {}".format(self.name_user, player_1))
             point_all = self._calculPoint(player_1, player_ia,point_user,point_ia)
             point_user = point_all[0]
             point_ia = point_all[1]
@@ -158,7 +164,6 @@ class Ia:
 
 
 
-name_user = input("entrez votre nom: ")
-start_game = MyGame(name_user)
+start_game = MyGame()
 start_game.start_game()
 
