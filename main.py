@@ -116,7 +116,10 @@ class Player:
             cpt += 1
         choice_user = -1
         while choice_user < 0 or choice_user > 2:
-            choice_user = int(input("votre choix : "))
+            try:
+                choice_user = int(input("votre choix : "))
+            except:
+                pass
         return self.liste_choix[choice_user]
 
 
