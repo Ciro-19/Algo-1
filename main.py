@@ -23,9 +23,10 @@ class MyGame:
 
     def _is_winner(self:object, choice_user:str,choice_ia:str)->int:
         try:
-            if choice_ia == self.winner[(choice_user, choice_ia)]:
+            choice = self.winner[(choice_user, choice_ia)]
+            if choice_ia == choice:
                 return 0
-            return self.winner[(choice_user, choice_ia)]
+            return choice
         except:
             return 1
 
