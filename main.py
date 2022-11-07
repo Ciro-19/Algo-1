@@ -39,9 +39,6 @@ class MyGame:
             print("equality parfaite point {} = {}, point {} = {}".format(self.choice_ia_or_player,point_ia, self.name_user ,point_user))
     
 
-<<<<<<< HEAD
-    def _calcul_point(self:object, choice_user:str, choice_ia:str, point_user:int, point_ia:int)->list[int]:
-=======
     def _continue_game_func(self:object)->str:
         continue_game = ""
         while continue_game != "y" and continue_game != "n":
@@ -50,7 +47,6 @@ class MyGame:
 
 
     def _calculPoint(self:object, choice_user:str, choice_ia:str, point_user:int, point_ia:int)->list[int]:
->>>>>>> 4ced7ba035fe3f923d31f06c1f8b50f72b240665
         if self._is_winner(choice_user, choice_ia) == 1:
             print("{} winner".format(self.name_user))
             point_user += 1
@@ -108,13 +104,8 @@ class MyGame:
             point_all = self._calculPoint(player_1, player_ia,point_user,point_ia)
             point_user = point_all[0]
             point_ia = point_all[1]
-<<<<<<< HEAD
-            continue_game += 1
-        self._nbre_point(point_user, point_ia)
-=======
             continue_game = self._continue_game_func()
         self._nbrePoint(point_user, point_ia)
->>>>>>> 4ced7ba035fe3f923d31f06c1f8b50f72b240665
 
 
 class Ia:
