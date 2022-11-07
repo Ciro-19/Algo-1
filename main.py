@@ -31,7 +31,7 @@ class MyGame:
             return 1
 
     
-    def _nbre_point(self:object, point_user:int, point_ia:int):
+    def _nbrePoint(self:object, point_user:int, point_ia:int):
         if point_user < point_ia:
             print(self.choice_ia_or_player," gagne avec une avance de ", point_ia - point_user, "et un score de = ", point_ia)
         elif point_user > point_ia:
@@ -47,7 +47,7 @@ class MyGame:
         return continue_game
 
 
-    def _calcul_point(self:object, choice_user:str, choice_ia:str, point_user:int, point_ia:int)->list[int]:
+    def _calculPoint(self:object, choice_user:str, choice_ia:str, point_user:int, point_ia:int)->list[int]:
         if self._is_winner(choice_user, choice_ia) == 1:
             print("{} gagne".format(self.name_user))
             point_user += 1
@@ -59,7 +59,7 @@ class MyGame:
         return [point_user, point_ia]
 
 
-    def _calcul_ia(self:object, choice_user:str,nbre_coup_rock:int, nbre_coup_scissor:int, nbre_coup_paper:int, liste_coup:list)->list[list, int]:
+    def _calculIa(self:object, choice_user:str,nbre_coup_rock:int, nbre_coup_scissor:int, nbre_coup_paper:int, liste_coup:list)->list[list, int]:
         if choice_user == "rock":
             nbre_coup_rock += 1
             nbre_coup_scissor = 0
@@ -92,7 +92,7 @@ class MyGame:
             if self.choice_ia_or_player == "ia":
                 with open("cerveauIa.txt", "a") as file_data:
                     file_data.write(" " + player_1)
-                result = self._calcul_ia(player_1, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
+                result = self._calculIa(player_1, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
                 liste_coup = result[0]
                 nbre_coup_rock = result[1]
                 nbre_coup_scissor = result[2]
@@ -102,11 +102,11 @@ class MyGame:
                 player_ia = Player(self.choice_ia_or_player, liste_choix).choice_user_possi()
             print("{} = {}".format(self.choice_ia_or_player,player_ia))
             print("{} = {}".format(self.name_user, player_1))
-            point_all = self._calcul_point(player_1, player_ia,point_user,point_ia)
+            point_all = self._calculPoint(player_1, player_ia,point_user,point_ia)
             point_user = point_all[0]
             point_ia = point_all[1]
             continue_game = self._continue_game_func()
-        self._nbre_point(point_user, point_ia)
+        self._nbrePoint(point_user, point_ia)
 
 
 class Player:
