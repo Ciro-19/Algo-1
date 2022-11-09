@@ -1,5 +1,4 @@
 from player import Player
-from random import choice
 
 class MyGame:
     def __init__(self):
@@ -11,17 +10,29 @@ class MyGame:
         self.name_user_1 = self.player_1.name_user()
         self.name_user_2 = self.player_2.name_user()
         #tab signe
-        self.signe = ["X", "O"]
-        #choix signe
-        if self.name_user_1 == "ia":
-            self.signe_user_2 = self.player_2.choice_signe(self.signe)
-            self.signe_user_1 = self.signe[self.signe.index(self.signe_user_2) - 1]
+        if self.name_user_1 == "guts":
+            print("Vous tentez de rentrer dans le tunnel pour sauver giffith mais vous rencontrez Zodd\n il veut vous tuer essayer de faire en sorte de le faire avant lui")
+            self.signe = ["G", "Z"]
+            self.signe_user_1 = self.signe[0]
+            self.signe_user_2 = self.signe[1]
+        elif self.name_user_2 == "guts":
+            print("Vous tentez de rentrer dans le tunnel pour sauver giffith mais vous rencontrez Zodd\n il veut vous tuer essayer de faire en sorte de le faire avant lui")
+            self.signe = ["G", "Z"]
+            self.signe_user_2 = self.signe[0]
+            self.signe_user_1 = self.signe[1]
         else:
-            self.signe_user_1 = self.player_1.choice_signe(self.signe)
-            self.signe_user_2 = self.signe[self.signe.index(self.signe_user_1) - 1]
+            self.signe = ["X", "O"]
+        #choix signe
+        if self.name_user_1 != "guts" and self.name_user_2 != "guts":
+            if self.name_user_1 == "ia":
+                self.signe_user_2 = self.player_2.choice_signe(self.signe)
+                self.signe_user_1 = self.signe[self.signe.index(self.signe_user_2) - 1]
+            else:
+                self.signe_user_1 = self.player_1.choice_signe(self.signe)
+                self.signe_user_2 = self.signe[self.signe.index(self.signe_user_1) - 1]
         self.dictG = {self.signe_user_1:self.name_user_1, self.signe_user_2:self.name_user_2}
-        print("j1 = ",self.signe_user_1)
-        print("j2 = ",self.signe_user_2)
+        print("joueur",self.name_user_1,"=",self.signe_user_1)
+        print("joueur",self.name_user_2,"=",self.signe_user_2)
         #change
         self.change_player = 0
         self.cpt = 0
@@ -267,7 +278,16 @@ class MyGame:
             print(self.tabGrille)
             if winner != "égalité":
                 if winner[0]:
-                    print("{} a gagner".format(self.dictG[winner[1]]))
+                    if self.name_user_1 == "guts":
+                        self.name_user_2 = "Zodd"
+                        self.dictG = {self.signe_user_1:self.name_user_1, self.signe_user_2:self.name_user_2}
+                        print("{} a gagner".format(self.dictG[winner[1]]))
+                    elif self.name_user_2 == "guts":
+                        self.name_user_1 = "Zodd"
+                        self.dictG = {self.signe_user_1:self.name_user_1, self.signe_user_2:self.name_user_2}
+                        print("{} a gagner".format(self.dictG[winner[1]]))
+                    else:
+                        print("{} a gagner".format(self.dictG[winner[1]]))
                     break
             else:
                 print("{}".format(winner))
