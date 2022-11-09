@@ -13,8 +13,12 @@ class MyGame:
         #tab signe
         self.signe = ["X", "O"]
         #choix signe
-        self.signe_user_1 = self.player_1.choice_signe(self.signe)
-        self.signe_user_2 = self.signe[self.signe.index(self.signe_user_1) - 1]
+        if self.name_user_1 == "ia":
+            self.signe_user_2 = self.player_2.choice_signe(self.signe)
+            self.signe_user_1 = self.signe[self.signe.index(self.signe_user_2) - 1]
+        else:
+            self.signe_user_1 = self.player_1.choice_signe(self.signe)
+            self.signe_user_2 = self.signe[self.signe.index(self.signe_user_1) - 1]
         self.dictG = {self.signe_user_1:self.name_user_1, self.signe_user_2:self.name_user_2}
         print("j1 = ",self.signe_user_1)
         print("j2 = ",self.signe_user_2)
@@ -214,20 +218,24 @@ class MyGame:
                         best_score = score
                         best_coup = (i,j)
         return best_coup
-
-    """def _min_max(self) :
+    """
+    def _min_max(self) :
         max = self._max()
+        
 
     def _min(self) :
         # Simule l'adverse
         max = self._max()
-        "if quelqu'un gagne ou plateau plein" return()
+        #"if quelqu'un gagne ou plateau plein" 
+        return
 
     def _max(self) :
         # Simule mes coups
         min = self._min()
-        "if quelqu'un gagne ou plateau plein" return()
+        #"if quelqu'un gagne ou plateau plein" 
+        return
     """
+        
     def _minimax(self, maximizingPlayer):
         winner = self._is_winner()
         if self.name_user_1 == "ia":
