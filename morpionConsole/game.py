@@ -166,25 +166,13 @@ class MyGame:
 
 
     def _is_winner(self):
-        egalite = False
+        egalite = True
         checkH0 = self._horizontal_check()
         if checkH0[0]:
             return checkH0
-        checkH1 = self._horizontal_check()
-        if checkH1[0]:
-            return checkH1
-        checkH2 = self._horizontal_check()
-        if checkH2[0]:
-           return checkH2
         checkL0 = self._ligne_check()
         if checkL0[0]:
             return checkL0
-        checkL1 = self._ligne_check()
-        if checkL1[0]:
-            return checkL1
-        checkL2 = self._ligne_check()
-        if checkL2[0]:
-            return checkL2
         checkD0 = self._diagonale_check()
         if checkD0[0]:
             return checkD0
@@ -194,10 +182,10 @@ class MyGame:
         for i in range(len(self.tabGrille)):
             for j in range(len(self.tabGrille[i])):
                 if type(self.tabGrille[i][j]) != str:
-                    egalite = True
-                    if egalite:
+                    egalite = False
+                    if not egalite:
                         return False, False
-        return "égalité", "égalité"
+        return "égalité"
  
 
     #ia
@@ -218,24 +206,8 @@ class MyGame:
                         best_score = score
                         best_coup = (i,j)
         return best_coup
-    """
-    def _min_max(self) :
-        max = self._max()
-        
 
-    def _min(self) :
-        # Simule l'adverse
-        max = self._max()
-        #"if quelqu'un gagne ou plateau plein" 
-        return
 
-    def _max(self) :
-        # Simule mes coups
-        min = self._min()
-        #"if quelqu'un gagne ou plateau plein" 
-        return
-    """
-        
     def _minimax(self, maximizingPlayer):
         winner = self._is_winner()
         if self.name_user_1 == "ia":
@@ -293,7 +265,10 @@ class MyGame:
             self._grille()
             winner = self._is_winner()
             print(self.tabGrille)
-            if winner[0]:
-                print("{} a gagner".format(self.dictG[winner[1]]))
-                break
+            if winner != "égalité":
+                if winner[0]:
+                    print("{} a gagner".format(self.dictG[winner[1]]))
+                    break
+            else:
+                print("{}".format(winner))
             cpt += 1
