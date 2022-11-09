@@ -116,9 +116,7 @@ class Player:
                 tabJeux[2][2] = "O"
         #si nul part
         else:
-            print("déjà attribuer ou pas dans la grille")
-            self.test_pass = True
-            self.si_pas_dans_grille = joue
+            pass
 
 
     def place_signe(self, joue, xe, ye,calculGX1, calculGX2, tabJeux, canvas):
@@ -133,8 +131,7 @@ class Player:
                 #cercle
                 canvas.create_oval(100,10,500,290,width=2,outline="red")
                 tabJeux[0][0] = "O"
-
-        elif calculGX1 < xe < calculGX2 and 0 < ye < 330:
+        elif calculGX1 < xe < calculGX2 and 0 < ye < 330 and type(tabJeux[0][1]) != str:
             if joue == 0:
                 #croix
                 canvas.create_line(660,0,1260,340,fill="black")
