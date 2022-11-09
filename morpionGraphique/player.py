@@ -11,14 +11,6 @@ class Player:
         self.name_user = name_user
         return name_user
 
-
-    def _meilleur_coup(self):
-        pass
-
-
-    def _algo_minmax(self):
-        pass
-
     
     def place_signe_ia(self,tabJeux, joue, canvas):
         copy_tabJeux = [j for i in tabJeux for j in i if type(j) == int]
