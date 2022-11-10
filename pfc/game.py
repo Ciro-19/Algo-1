@@ -79,13 +79,22 @@ class MyGame:
         nbre_coup_scissor = 0
         nbre_coup_paper = 0
         while continue_game != 3 and self.name_user != "dolorean" and self.choice_ia_or_player != "dolorean":
-            player_1_coup = self.player_1.choice_user_possi(self.choice_ia_or_player)
-            result = self._calcul_ia(player_1_coup, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
-            liste_coup = result[0]
-            nbre_coup_rock = result[1]
-            nbre_coup_scissor = result[2]
-            nbre_coup_paper = result[3]
-            player_ia = self.player_2.choice_user_possi(liste_coup,player_1_coup,self.player_1)
+            if self.name_user != "ia":
+                player_1_coup = self.player_1.choice_user_possi(self.choice_ia_or_player)
+                result = self._calcul_ia(player_1_coup, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
+                liste_coup = result[0]
+                nbre_coup_rock = result[1]
+                nbre_coup_scissor = result[2]
+                nbre_coup_paper = result[3]
+                player_ia = self.player_2.choice_user_possi(liste_coup,player_1_coup,self.player_1)
+            else:
+                player_1_coup = self.player_2.choice_user_possi(self.name_user)
+                result = self._calcul_ia(player_1_coup, nbre_coup_rock, nbre_coup_scissor, nbre_coup_paper, liste_coup)
+                liste_coup = result[0]
+                nbre_coup_rock = result[1]
+                nbre_coup_scissor = result[2]
+                nbre_coup_paper = result[3]
+                player_ia = self.player_1.choice_user_possi(liste_coup,player_1_coup,self.player_2)
             print("{} = {}".format(self.choice_ia_or_player,player_ia))
             print("{} = {}".format(self.name_user, player_1_coup))
             point_all = self._calcul_point(player_1_coup, player_ia,point_user,point_ia)
